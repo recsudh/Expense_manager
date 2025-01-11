@@ -33,7 +33,7 @@ route.post("/create", async (req, res, next) => {
 
 // singup
 
-route.post("/signup",auth,async (req,res,next)=>{
+route.post("/signup",async (req,res,next)=>{
     try{
         
             // validation
@@ -67,6 +67,26 @@ route.post("/signup",auth,async (req,res,next)=>{
 })    
 
 // get 
-
+route.get("/fetch",auth,async (req,res,next)=>{
+  try{
+    const user_id= req.user_id
+    console.log(req.user_id);
+    const user = await User.findOne({_id:user_id})
+    console.log(user);
+    if(!user){
+      throw new Error("No user found!!")
+    }
+    res.status(200).send({
+      status:"Found",
+      user
+    })
+  }catch(e){
+    console.log(e);
+    res.json({
+      status:"Failed",
+      Error:"no user found!!"
+    })
+  }
+})
 
 module.exports = route;
