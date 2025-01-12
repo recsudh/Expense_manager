@@ -19,6 +19,14 @@ const expenseschema = new mongoose.Schema({
     timestamps:true
 })
 
+const totalschema = new mongoose.Schema({
+    amount:String,
+    userId: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }
+})
+
 userschema.pre("save",async function(next){
     const user = this
     if(user.isModified("password")){
@@ -30,8 +38,10 @@ userschema.pre("save",async function(next){
 
 const User = mongoose.model("User",userschema)
 const expense = mongoose.model("expense",expenseschema)
+const total= mongoose.model("total",totalschema)
 
 module.exports={
     User,
-    expense
+    expense,
+    total
 }
