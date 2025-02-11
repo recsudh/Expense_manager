@@ -7,7 +7,7 @@ function auth (req,res,next){
     const decode = jwt.verify(token,process.env.JWT_SECRET)
     // console.log(decode);
     req.user_id= decode._id
-    // console.log(user_id);
+    console.log(user_id);
     next()
     }catch(e){
         next()
